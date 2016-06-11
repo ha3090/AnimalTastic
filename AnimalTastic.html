@@ -10,6 +10,8 @@
 <body background = "assets/ab_plasma.jpg">  
 
 <div class="container">
+    <h1>Movie GIF Search</h1>
+
     <div class="row">
         <div id="buttons">
             <button data-person="You've Got Mail">You've Got Mail</button>
@@ -21,27 +23,33 @@
     </div>
 
     <div class="row">
-        <div id="search">
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-        </div>
+        <form id="movie-form">
+            <label for="movie-input">Add a Movie</label>
+            <input type="text" id="movie-input"><br>
+            <input id="addMovie" type="submit" value="Add a Movie">
+        </form>
     </div>
-
-    <div id="gifsAppearHere">
+    <div class="row">
+        <div id="gifsAppearHere"></div>
     </div>
 </div>
+
+<!-- jQuery -->
 
 <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
 <script type="text/javascript">
 
+// ARRAY OF MOVIES //
+
+    var movies = ['You/ve Got Mail', 'Home Alone', 'Beauty and The Beast', 'Finding Nemo', 'The Lord of The Rings'];
+
+// FUNCTION //
+
+
     $('button').on('click', function() {
-        var p = $(this).data('person');
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + p + "&api_key=dc6zaTOxFJmzC&limit=10";
-        var search = $(this).data('person');
+        var movie = $(this).data('person');
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + movie + "&api_key=dc6zaTOxFJmzC&limit=10";
+     
 
         $.ajax({
                 url: queryURL,
@@ -68,6 +76,18 @@
 
             });
     });
+
+// add movie button //
+
+
+
+    $('#addMovie').on('click', function(){
+            
+            var movie = $('#movie-input').val().trim(  
+            movies.push(movie);   
+            return false;
+            $(document).on('click', '.movie', displayMovieGif);
+    })
 
 
 </script>
